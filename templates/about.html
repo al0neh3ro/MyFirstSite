@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>О нас</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    {% if username %}
+        <span class="user-greeting"> {{ username }} </span>
+        <a href="/logout" >Выйти</a>
+    {% else %}
+        <a href="/login" >Войти</a>
+        <a href="/register" >Регистрация</a>
+    {% endif %}
+
+    <div style="position: fixed; top: 10px; left: 10px; color: #000000; font-size: 14px;">
+    <span id="clock">🕒 --:--:--</span>
+    </div>
+    
+    <h1 style="color: rgb(0, 153, 255);">Тут будет указана информация обо мне</h1>
+    <p>Этот текст лежит в отдельном HTML-файле.</p>
+    <a href="/" class="button">◀ Назад</a>
+    <a href="/contact" class="button">Вперед ▶</a>
+    
+    <div class="round-btn" title="Написать" onclick="">
+    💬</div>
+
+    <div class="page-map">
+    <h3>Страницы сайта:</h3>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/about" class="active">О нас</a></li>
+        <li><a href="/contact">Контакты</a></li>
+        <li><a href="/register">Регистрация</a></li>
+    </ul>
+    </div>
+
+    
+    <script>
+    function updateClock() {
+        const now = new Date();
+        const time = now.toTimeString().slice(0, 8);
+        document.getElementById('clock').textContent = '🕒 ' + time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock(); // Запускаем сразу
+    </script>       
+    
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная | Мой сайт</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+   
+    {% if username %}
+        <span class="user-greeting">Привет, {{ username }}!</span>
+        <a href="/logout" >Выйти</a>
+    {% else %}
+        <a href="/login" >Войти</a>
+        <a href="/register" >Регистрация</a>
+    {% endif %}
+
+    <div style="position: fixed; top: 10px; left: 10px; color: #000000; font-size: 14px;">
+    <span id="clock">🕒 --:--:--</span>
+    </div>
+
+
+    {% if message %}
+    <p style="color: green;">{{ message }}</p>
+    {% endif %}
+
+    <h1 style="color: rgb(255, 225, 0);">Добро пожаловать!</h1>
+    <p>Этот текст лежит в отдельном HTML-файле.</p>
+    <p>Это мой первый рабочий проект.</p>
+    <a href="/contact" class="button">◀ Назад</a>
+    <a href="/about" class="button">Вперед ▶</a>
+
+  
+
+    <div class="round-btn" title="Написать">
+    💬</div>
+
+    <div class="page-map">
+    <h3>Страницы сайта:</h3>
+    <ul>
+        
+        <li><a href="/" class="active">Главная</a></li>
+        <li><a href="/about">О нас</a></li>
+        <li><a href="/contact">Контакты</a></li>
+        <li><a href="/register" >Регистрация</a></li>
+    </ul>
+    </div>
+
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const time = now.toTimeString().slice(0, 8);
+        document.getElementById('clock').textContent = '🕒 ' + time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock(); // Запускаем сразу
+</script>
+
+
+</body>
+</html>
