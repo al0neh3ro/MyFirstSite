@@ -4,6 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import request, redirect, url_for, flash
 from datetime import datetime
 from flask import session
+import os
+import psycopg2
+from dotenv import load_dotenv
+load_dotenv()
 
 # создание основы для запуска 
 app = Flask(__name__)
@@ -11,10 +15,17 @@ app = Flask(__name__)
 # ключ для сессии 
 app.secret_key = 'secret_key_0123'
 
+# Получаем строку подключения из переменных окружения
+DATABASE_URL = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# доделать подключение к бд на alive и разобраться с render
+
+
 
 # Настройка подключения к PostgreSQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:123456@localhost/user_from_my_site'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://admin:123456@localhost/user_from_my_site'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Создаём объект для работы с БД
 db = SQLAlchemy(app)
@@ -133,8 +144,8 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)
-    now=currenttime()
-    return redirect('/login', current_time=now)
+    # now=currenttime()
+    return redirect('/login')
 
 # 30.06.2026 - я впервые сам пофиксил баг по поведению сайта
 # горжусь собой, это было круто 
@@ -159,6 +170,12 @@ def logout():
 #     db.session.query(User).delete()
 #     db.session.commit()
 #     print("Все пользователи удалены")
+
+
+# создание таблицы
+# with app.app_context():
+#     db.create_all()
+#     print("Table create!")
 
 # запуск сервера
 if __name__ == '__main__':
